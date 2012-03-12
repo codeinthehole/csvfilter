@@ -1,0 +1,52 @@
+#!/usr/bin/env python
+import sys
+from optparse import OptionParser
+import csv
+
+from csvfilter import Processor
+
+
+def main(options, args):
+    infile, outfile = get_files(options, args)
+    processor = get_processor(options, args)
+    pump(processor, infile, outfile)
+
+
+def get_files(options, args):
+    if len(args) > 0:
+        infile = open(args[0], 'r')
+    else:
+        infile = sys.stdin
+    return infile, sys.stdout
+
+
+def get_processor(options, args):
+    if options.columns:
+        columns = map(int, options.columns.split(','))
+    else:
+        columns = None
+    processor = Processor(columns=columns,
+                          skip=options.skip,
+                          delimiter=options.delimiter,
+                          mode=Processor.DROP if options.inverse else Processor.PLUCK)
+    return processor
+
+
+def pump(processor, infile, outfile):
+    writer = csv.writer(outfile)
+    for output in processor.process(infile):
+        writer.writerow(output)
+
+
+if __name__ == '__main__':
+    parser = OptionParser()
+    parser.add_option('-c', '--columns', dest='columns', default=None,
+                      help="Specify which columns to pluck")
+    parser.add_option('-s', '--skip', dest='skip', default=0,
+                      type='int', help="Number of rows to skip")
+    parser.add_option('-d', '--delimiter', dest='delimiter', default=',',
+                      help="Delimiter of incoming CSV data")
+    parser.add_option('-i', '--inverse', dest='inverse', default=False,
+                      action='store_true', help="Invert the filter - ie drop the selected columns")
+    (options, args) = parser.parse_args()
+    main(options, args)
