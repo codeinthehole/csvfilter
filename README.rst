@@ -31,6 +31,21 @@ Skip the header row::
 CSV data can be supplied through STDIN or by running ``csvfilter`` directly on a
 file.
 
+Help::
+
+    $ csvfilter --help
+    Usage: csvfilter [options]
+
+    Options:
+    -h, --help            show this help message and exit
+    -c COLUMNS, --columns=COLUMNS
+                            Specify which columns to pluck
+    -s SKIP, --skip=SKIP  Number of rows to skip
+    -d DELIMITER, --delimiter=DELIMITER
+                            Delimiter of incoming CSV data
+    -i, --inverse         Invert the filter - ie drop the selected columns
+
+
 Contributing
 ------------
 
