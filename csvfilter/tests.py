@@ -24,6 +24,12 @@ class ProcessorTests(unittest.TestCase):
         output = [row for row in p.process(SAMPLE_CSV)]
         self.assertEqual([['a'], ['d'], ['g']], output)
 
+    def test_validator(self):
+        p = Processor()
+        p.add_validator(lambda row: row[0] == 'a')
+        output = [row for row in p.process(SAMPLE_CSV)]
+        self.assertEqual([['a', 'b', 'c']], output)
+
     def test_multiple_col_plucking(self):
         p = Processor(columns=[0, 2])
         output = [row for row in p.process(SAMPLE_CSV)]
