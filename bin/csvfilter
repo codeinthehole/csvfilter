@@ -9,7 +9,8 @@ from csvfilter import Processor
 def main(options, args):
     infile, outfile = get_files(options, args)
     processor = get_processor(options, args)
-    pump(processor, infile, outfile)
+    writer = get_writer(outfile, options)
+    pump(processor, infile, writer)
 
 
 def get_files(options, args):
@@ -21,8 +22,8 @@ def get_files(options, args):
 
 
 def get_processor(options, args):
-    if options.columns:
-        columns = map(int, options.columns.split(','))
+    if options.fields:
+        columns = map(int, options.fields.split(','))
     else:
         columns = None
     processor = Processor(columns=columns,
@@ -32,21 +33,29 @@ def get_processor(options, args):
     return processor
 
 
-def pump(processor, infile, outfile):
-    writer = csv.writer(outfile)
+def get_writer(outfile, options):
+    return csv.writer(outfile, delimiter=options.out_delimiter,
+                      quotechar=options.out_quotechar)
+
+
+def pump(processor, infile, writer):
     for output in processor.process(infile):
         writer.writerow(output)
 
 
 if __name__ == '__main__':
     parser = OptionParser()
-    parser.add_option('-c', '--columns', dest='columns', default=None,
-                      help="Specify which columns to pluck")
+    parser.add_option('-f', '--fields', dest='fields', default=None,
+                      help="Specify which fields to pluck")
     parser.add_option('-s', '--skip', dest='skip', default=0,
                       type='int', help="Number of rows to skip")
     parser.add_option('-d', '--delimiter', dest='delimiter', default=',',
                       help="Delimiter of incoming CSV data")
     parser.add_option('-i', '--inverse', dest='inverse', default=False,
-                      action='store_true', help="Invert the filter - ie drop the selected columns")
+                      action='store_true', help="Invert the filter - ie drop the selected fields")
+    parser.add_option('--out-delimiter', dest='out_delimiter', default=',',
+                      help="Delimiter to use for output")
+    parser.add_option('--out-quotechar', dest='out_quotechar', default='"',
+                      help="Quote character to use for output")
     (options, args) = parser.parse_args()
     main(options, args)

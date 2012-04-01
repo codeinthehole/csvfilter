@@ -1,5 +1,5 @@
 "Pcode","Locality","State","Comments","DeliveryOffice","PresortIndicator","ParcelZone","BSPnumber","BSPname","Category","Lat","Long"
-"0200","AUSTRALIAN NATIONAL UNIVERSITY","ACT","PO Boxes","AUSTRALIAN NATIONAL UNI LPO x","150","N2 ","019","CANBERRA","Post Office Boxes                                 ","-35.277272","149.117136"
+"02,00","AUSTRALIAN NATIONAL UNIVERSITY","ACT","PO Boxes","AUSTRALIAN NATIONAL UNI LPO x","150","N2 ","019","CANBERRA","Post Office Boxes                                 ","-35.277272","149.117136"
 "0221","BARTON","ACT","LVR Special Mailing",,"150","N2 ","019","CANBERRA","LVR                                               ","-35.201372","149.095065"
 "0800","DARWIN","NT",,"DARWIN DELIVERY CENTRE        ","085","NT1","001","DARWIN","Delivery Area                                     ","-12.801028","130.955789"
 "0801","DARWIN","NT","GPO Boxes","DARWIN GPO DELIVERY ANNEXE    ","085","NT1","001","DARWIN","Post Office Boxes                                 ","-12.801028","130.955789"
