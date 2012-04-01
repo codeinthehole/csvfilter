@@ -3,7 +3,7 @@ import sys
 from optparse import OptionParser
 import csv
 
-from csvfilter import Processor
+from csvfilter import Processor, VERSION
 
 
 def main(options, args):
@@ -44,7 +44,9 @@ def pump(processor, infile, writer):
 
 
 if __name__ == '__main__':
-    parser = OptionParser()
+    usage = "Usage: %prog [options] [inputfile]" +\
+            "\n\nVersion: %s\nSource: %s" % (VERSION, 'https://github.com/codeinthehole/csvfilter/')
+    parser = OptionParser(usage=usage)
     parser.add_option('-f', '--fields', dest='fields', default=None,
                       help="Specify which fields to pluck")
     parser.add_option('-s', '--skip', dest='skip', default=0,

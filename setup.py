@@ -1,8 +1,9 @@
 #!/usr/bin/env python
 from setuptools import setup, find_packages
+from csvfilter import VERSION
 
 setup(name='csvfilter',
-      version='0.1.1',
+      version=VERSION,
       url='https://github.com/codeinthehole/csvfilter',
       author="David Winterbottom",
       author_email="david.winterbottom@tangentlabs.co.uk",

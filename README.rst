@@ -4,50 +4,63 @@ csvfilter - Simple CSV filtering
 
 A simple wrapper around Python's CSV module to provide a command-line tool for
 filtering columns from a CSV file.  This is useful as standard tools like awk
-don't account for the quoting and escaping used in CSV files.  
+don't account for the quoting and escaping used in CSV files.  It's a bit like
+``cut`` but for CSVs.
 
-Installation
-------------
+Install
+-------
 
 From PyPi::
 
     pip install csvfilter
 
-Usage
------
+Use
+---
 
-Pluck fields 1, 3 and 5::
+Pluck fields 1, 3 and 5 from ``in.csv``::
 
-    csvfilter -c 1,3,5 in.csv > out.csv
+    csvfilter -f 1,3,5 in.csv > out.csv
 
-Pluck all fields apart from column 2::
+Pluck all fields apart from column 2 from STDIN::
 
-    cat in.csv | csvfilter -c 2 -i > out.csv
+    cat in.csv | csvfilter -f 2 -i > out.csv
+
+Convert pipe-separated file to comma-separated (default-separated output is
+comma-separated)::
+
+    csvfilter -d"|" in.psv > out.csv 
 
 Skip the header row::
 
     cat in.csv | csvfilter --skip=1
 
-CSV data can be supplied through STDIN or by running ``csvfilter`` directly on a
+As you can see, CSV data can be supplied through STDIN or by running ``csvfilter`` directly on a
 file.
 
-Help::
+Help is in the usual place::
 
     $ csvfilter --help
-    Usage: csvfilter [options]
+
+    Usage: csvfilter [options] [inputfile]
+
+    Source: https://github.com/codeinthehole/csvfilter/
 
     Options:
     -h, --help            show this help message and exit
-    -c COLUMNS, --columns=COLUMNS
-                            Specify which columns to pluck
+    -f FIELDS, --fields=FIELDS
+                            Specify which fields to pluck
     -s SKIP, --skip=SKIP  Number of rows to skip
     -d DELIMITER, --delimiter=DELIMITER
                             Delimiter of incoming CSV data
-    -i, --inverse         Invert the filter - ie drop the selected columns
+    -i, --inverse         Invert the filter - ie drop the selected fields
+    --out-delimiter=OUT_DELIMITER
+                            Delimiter to use for output
+    --out-quotechar=OUT_QUOTECHAR
+                            Quote character to use for output
 
 
-Contributing
-------------
+Contribute
+----------
 
 After cloning, install ``nose`` and run the test suite using::
 
@@ -59,5 +72,5 @@ To experiment with the executable, install in develop mode::
 
 and use the fixture files::
 
-    cat fixtures/au.csv | csvfilter -c 3,1,2 -s 1
-    csvfilter fixutres/au.csv -c 1,2 -i
+    cat fixtures/au.csv | csvfilter -f 3,1,2 -s 1
+    csvfilter fixutres/au.csv -f 1,2 -i

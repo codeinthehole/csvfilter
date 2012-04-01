@@ -1,5 +1,7 @@
 import csv
 
+VERSION = '0.1.1'
+
 
 class Processor(object):
     DROP, PLUCK = 'Drop', 'Pluck'
