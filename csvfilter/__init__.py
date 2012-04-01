@@ -4,11 +4,10 @@ VERSION = '0.2'
 
 
 class Processor(object):
-    DROP, PLUCK = 'Drop', 'Pluck'
 
-    def __init__(self, columns=None, mode=PLUCK, delimiter=',', skip=0):
-        self.columns = columns
-        self.mode = mode
+    def __init__(self, fields=None, invert=False, delimiter=',', skip=0):
+        self.fields = fields
+        self.invert = invert
         self.delimiter = delimiter
         self.skip = skip
         self.validators = []
@@ -22,11 +21,11 @@ class Processor(object):
             output = None
             if reader.line_num <= self.skip:
                 continue
-            if self.columns:
-                if self.mode == self.PLUCK:
-                    output = [row[i] for i in self.columns if len(row) > i]
+            if self.fields:
+                if not self.invert:
+                    output = [row[i] for i in self.fields if len(row) > i]
                 else:
-                    output = [e for i,e in enumerate(row) if i not in self.columns]
+                    output = [e for i,e in enumerate(row) if i not in self.fields]
             else:
                 output = row
             if not self.is_valid(output):

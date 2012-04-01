@@ -20,7 +20,7 @@ class ProcessorTests(unittest.TestCase):
         self.assertEqual([['a', 'b', 'c'], ['d', 'e', 'f'], ['g', 'h', 'i']], output)
 
     def test_single_col_plucking(self):
-        p = Processor(columns=[0])
+        p = Processor(fields=[0])
         output = [row for row in p.process(SAMPLE_CSV)]
         self.assertEqual([['a'], ['d'], ['g']], output)
 
@@ -31,37 +31,37 @@ class ProcessorTests(unittest.TestCase):
         self.assertEqual([['a', 'b', 'c']], output)
 
     def test_multiple_col_plucking(self):
-        p = Processor(columns=[0, 2])
+        p = Processor(fields=[0, 2])
         output = [row for row in p.process(SAMPLE_CSV)]
         self.assertEqual([['a', 'c'], ['d', 'f'], ['g', 'i']], output)
 
     def test_multiple_col_plucking_with_reordering(self):
-        p = Processor(columns=[2, 1])
+        p = Processor(fields=[2, 1])
         output = [row for row in p.process(SAMPLE_CSV)]
         self.assertEqual([['c', 'b'], ['f', 'e'], ['i', 'h']], output)
 
     def test_single_col_dropping(self):
-        p = Processor(columns=[1], mode=Processor.DROP)
+        p = Processor(fields=[1], invert=True)
         output = [row for row in p.process(SAMPLE_CSV)]
         self.assertEqual([['a', 'c'], ['d', 'f'], ['g', 'i']], output)
 
     def test_multiple_col_dropping(self):
-        p = Processor(columns=[0,2], mode=Processor.DROP)
+        p = Processor(fields=[0,2], invert=True)
         output = [row for row in p.process(SAMPLE_CSV)]
         self.assertEqual([['b'], ['e'], ['h']], output)
 
     def test_single_col_plucking_with_skip(self):
-        p = Processor(columns=[0], skip=1)
+        p = Processor(fields=[0], skip=1)
         output = [row for row in p.process(SAMPLE_CSV)]
         self.assertEqual([['d'], ['g']], output)
 
     def test_pluck_with_pipes(self):
-        p = Processor(columns=[0], delimiter='|')
+        p = Processor(fields=[0], delimiter='|')
         output = [row for row in p.process(SAMPLE_PSV)]
         self.assertEqual([['a'], ['d'], ['g']], output)
 
     def test_quoted_pluck(self):
-        p = Processor(columns=[0, 10, 11], skip=1)
+        p = Processor(fields=[0, 10, 11], skip=1)
         output = [row for row in p.process(SAMPLE_QUOTED_CSV)]
         expected = [['0200', '-35.277272', '149.117136'], ['0221', '-35.201372', '149.095065']]
         self.assertEqual(expected, output)
