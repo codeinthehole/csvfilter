@@ -62,13 +62,17 @@ Help is in the usual place::
 Contribute
 ----------
 
-After cloning, install ``nose`` and run the test suite using::
+After cloning, install the testing requirements::
 
-    nosetests
+    pip install -r requirements.txt
 
-To experiment with the executable, install in develop mode::
+Install the package in 'develop' mode to bring the executable onto your path::
 
     ./setup.py develop
+
+Run the tests with::
+
+    nosetests
 
 and use the fixture files::
 
