@@ -1,10 +1,10 @@
 #!/bin/bash
 
 RELEASE_NUM=`grep VERSION csvfilter/__init__.py | cut -d\' -f2`
-echo $RELEASE_NUM
 
 git tag | grep $RELEASE_NUM > /dev/null && \
 	echo "New version number required ($RELEASE_NUM already used)" && exit 1
+echo "Releasing version $RELEASE_NUM"
 
 # Push to PyPi
 ./setup.py sdist upload
