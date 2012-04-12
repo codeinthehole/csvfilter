@@ -14,23 +14,16 @@ def main(options, args):
 
 
 def get_files(options, args):
-    if len(args) > 0:
-        infile = open(args[0], 'r')
-    else:
-        infile = sys.stdin
+    infile = open(args[0], 'r') if len(args) > 0 else sys.stdin
     return infile, sys.stdout
 
 
 def get_processor(options, args):
-    if options.fields:
-        columns = map(int, options.fields.split(','))
-    else:
-        columns = None
-    processor = Processor(columns=columns,
-                          skip=options.skip,
-                          delimiter=options.delimiter,
-                          mode=Processor.DROP if options.inverse else Processor.PLUCK)
-    return processor
+    fields = map(int, options.fields.split(',')) if options.fields else None
+    return Processor(fields=fields,
+                     skip=options.skip,
+                     delimiter=options.delimiter,
+                     invert=options.inverse)
 
 
 def get_writer(outfile, options):
