@@ -4,8 +4,9 @@ csvfilter - Simple CSV filtering
 
 A simple wrapper around Python's CSV module to provide a command-line tool for
 filtering columns from a CSV file.  This is useful as standard tools like awk
-don't account for the quoting and escaping used in CSV files.  It's a bit like
-``cut`` but for CSVs.
+can't easily handle the quoting and escaping used in CSV files.  
+
+Basically, it's a bit like ``cut`` but for CSVs.
 
 Install
 -------
@@ -25,12 +26,12 @@ Pluck all fields apart from column 2 from STDIN::
 
     cat in.csv | csvfilter -f 2 -i > out.csv
 
-Convert pipe-separated file to comma-separated (default-separated output is
+Convert pipe-separated file to comma-separated (by default, output is 
 comma-separated)::
 
     csvfilter -d"|" in.psv > out.csv 
 
-Skip the header row::
+Skip that pesky header row::
 
     cat in.csv | csvfilter --skip=1
 
@@ -58,6 +59,12 @@ Help is in the usual place::
     --out-quotechar=OUT_QUOTECHAR
                             Quote character to use for output
 
+Report issues
+-------------
+
+Use the `Github issue tracker`_ or, better still...
+
+.. _`Github issue tracker`: https://github.com/codeinthehole/csvfilter/issues
 
 Contribute
 ----------
@@ -74,7 +81,9 @@ Run the tests with::
 
     nosetests
 
-and use the fixture files::
+and, if it helps, use the fixture files to test your amendments::
 
     cat fixtures/au.csv | csvfilter -f 3,1,2 -s 1
     csvfilter fixutres/au.csv -f 1,2 -i
+
+Have fun.
