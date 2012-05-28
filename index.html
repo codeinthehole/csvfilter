@@ -1,0 +1,130 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>csvfilter by codeinthehole</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>csvfilter</h1>
+        <p>Command-line tool for manipulating CSV data</p>
+        <p class="view"><a href="https://github.com/codeinthehole/csvfilter">View the Project on GitHub <small>codeinthehole/csvfilter</small></a></p>
+        <ul>
+          <li><a href="https://github.com/codeinthehole/csvfilter/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/codeinthehole/csvfilter/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/codeinthehole/csvfilter">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1></h1>
+
+<h1>csvfilter - Simple CSV filtering</h1>
+
+<p>A simple wrapper around Python's CSV module to provide a command-line tool for
+filtering columns from a CSV file.  This is useful as standard tools like awk
+can't easily handle the quoting and escaping used in CSV files.  </p>
+
+<p>Basically, it's a bit like <code>cut</code> but for CSVs.</p>
+
+<h2>Install</h2>
+
+<p>From PyPi:</p>
+
+<pre><code>pip install csvfilter
+</code></pre>
+
+<h2>Use</h2>
+
+<p>Pluck fields 1, 3 and 5 from <code>in.csv</code>:</p>
+
+<pre><code>csvfilter -f 1,3,5 in.csv &gt; out.csv
+</code></pre>
+
+<p>Pluck all fields apart from column 2 from STDIN:</p>
+
+<pre><code>cat in.csv | csvfilter -f 2 -i &gt; out.csv
+</code></pre>
+
+<p>Convert pipe-separated file to comma-separated (by default, output is 
+comma-separated):</p>
+
+<pre><code>csvfilter -d"|" in.psv &gt; out.csv 
+</code></pre>
+
+<p>Skip that pesky header row:</p>
+
+<pre><code>cat in.csv | csvfilter --skip=1
+</code></pre>
+
+<p>As you can see, CSV data can be supplied through STDIN or by running <code>csvfilter</code> directly on a
+file.</p>
+
+<p>Help is in the usual place:</p>
+
+<pre><code>$ csvfilter --help
+
+Usage: csvfilter [options] [inputfile]
+
+Source: https://github.com/codeinthehole/csvfilter/
+
+Options:
+-h, --help            show this help message and exit
+-f FIELDS, --fields=FIELDS
+                        Specify which fields to pluck
+-s SKIP, --skip=SKIP  Number of rows to skip
+-d DELIMITER, --delimiter=DELIMITER
+                        Delimiter of incoming CSV data
+-i, --inverse         Invert the filter - ie drop the selected fields
+--out-delimiter=OUT_DELIMITER
+                        Delimiter to use for output
+--out-quotechar=OUT_QUOTECHAR
+                        Quote character to use for output
+</code></pre>
+
+<h2>Report issues</h2>
+
+<p>Use the <a href="https://github.com/codeinthehole/csvfilter/issues">Github issue tracker</a> or, better still...</p>
+
+<h2>Contribute</h2>
+
+<p>After cloning, install the testing requirements:</p>
+
+<pre><code>pip install -r requirements.txt
+</code></pre>
+
+<p>Install the package in 'develop' mode to bring the executable onto your path:</p>
+
+<pre><code>./setup.py develop
+</code></pre>
+
+<p>Run the tests with:</p>
+
+<pre><code>nosetests
+</code></pre>
+
+<p>and, if it helps, use the fixture files to test your amendments:</p>
+
+<pre><code>cat fixtures/au.csv | csvfilter -f 3,1,2 -s 1
+csvfilter fixutres/au.csv -f 1,2 -i
+</code></pre>
+
+<p>Have fun.</p>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/codeinthehole">codeinthehole</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
