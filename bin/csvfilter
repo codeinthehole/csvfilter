@@ -23,6 +23,7 @@ def get_processor(options, args):
     return Processor(fields=fields,
                      skip=options.skip,
                      delimiter=options.delimiter,
+                     quotechar=options.quotechar,
                      invert=options.inverse)
 
 
@@ -46,6 +47,8 @@ if __name__ == '__main__':
                       type='int', help="Number of rows to skip")
     parser.add_option('-d', '--delimiter', dest='delimiter', default=',',
                       help="Delimiter of incoming CSV data")
+    parser.add_option('-q', '--quotechar', dest='quotechar', default='"',
+                      help="Quotechar of incoming CSV data")
     parser.add_option('-i', '--inverse', dest='inverse', default=False,
                       action='store_true', help="Invert the filter - ie drop the selected fields")
     parser.add_option('--out-delimiter', dest='out_delimiter', default=',',

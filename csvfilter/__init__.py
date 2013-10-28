@@ -5,10 +5,12 @@ VERSION = '0.2.2'
 
 class Processor(object):
 
-    def __init__(self, fields=None, invert=False, delimiter=',', skip=0):
+    def __init__(self, fields=None, invert=False, delimiter=',', 
+            quotechar='"', skip=0):
         self.fields = fields
         self.invert = invert
         self.delimiter = delimiter
+        self.quotechar = quotechar
         self.skip = skip
         self.validators = []
 
@@ -16,7 +18,8 @@ class Processor(object):
         self.validators.append(f)
 
     def process(self, file_handle):
-        reader = csv.reader(file_handle, delimiter=self.delimiter)
+        reader = csv.reader(file_handle, delimiter=self.delimiter, 
+            quotechar=self.quotechar)
         for row in reader:
             output = None
             if reader.line_num <= self.skip:

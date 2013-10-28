@@ -11,6 +11,12 @@ SAMPLE_QUOTED_CSV = [
 '"0221","BARTON","ACT","LVR Special Mailing",,"150","N2 ","019","CANBERRA","LVR ","-35.201372","149.095065"'
 ]
 
+SAMPLE_CUSTOM_QUOTED_CSV = [
+'|Pcode|,|Locality|,|State|,|Comments|,|DeliveryOffice|,|PresortIndicator|,|ParcelZone|,|BSPnumber|,|BSPname|,|Category|,|Lat|,|Long|',
+'|0200|,|AUSTRALIAN NATIONAL UNIVERSITY|,|ACT|,|PO Boxes|,|AUSTRALIAN NATIONAL UNI LPO x|,|150|,|N2 |,|019|,|CANBERRA|,|Post Office Boxes |,|-35.277272|,|149.117136|',
+'|0221|,|BARTON|,|ACT|,|LVR Special Mailing|,,|150|,|N2 |,|019|,|CANBERRA|,|LVR |,|-35.201372|,|149.095065|'
+]
+
 
 class ProcessorTests(unittest.TestCase):
 
@@ -63,5 +69,11 @@ class ProcessorTests(unittest.TestCase):
     def test_quoted_pluck(self):
         p = Processor(fields=[0, 10, 11], skip=1)
         output = [row for row in p.process(SAMPLE_QUOTED_CSV)]
+        expected = [['0200', '-35.277272', '149.117136'], ['0221', '-35.201372', '149.095065']]
+        self.assertEqual(expected, output)
+
+    def test_custom_quoted_pluck(self):
+        p = Processor(fields=[0, 10, 11], quotechar='|', skip=1)
+        output = [row for row in p.process(SAMPLE_CUSTOM_QUOTED_CSV)]
         expected = [['0200', '-35.277272', '149.117136'], ['0221', '-35.201372', '149.095065']]
         self.assertEqual(expected, output)

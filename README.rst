@@ -53,6 +53,9 @@ Help is in the usual place::
     -s SKIP, --skip=SKIP  Number of rows to skip
     -d DELIMITER, --delimiter=DELIMITER
                             Delimiter of incoming CSV data
+    -q QUOTECHAR, --quotechar=QUOTECHAR
+                            Quotechar of incoming CSV data
+
     -i, --inverse         Invert the filter - ie drop the selected fields
     --out-delimiter=OUT_DELIMITER
                             Delimiter to use for output
