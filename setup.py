@@ -11,5 +11,5 @@ setup(name='csvfilter',
       description="A command-line utility and Python API for manipulating CSV data, eg plucking columns and reordering them.  It's a bit like the unix utility 'cut'",
       license='MIT',
       long_description=open('README.rst').read(),
-      packages=find_packages(),
+      packages=find_packages(exclude=["tests*"]),
       scripts=['bin/csvfilter'])
