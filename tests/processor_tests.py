@@ -4,6 +4,7 @@ from csvfilter import Processor
 
 SAMPLE_CSV = ['a,b,c', 'd,e,f', 'g,h,i']
 SAMPLE_PSV = ['a|b|c', 'd|e|f', 'g|h|i']
+SAMPLE_TSV = ['a	b	c', 'd	e	f', 'g	h	i']
 
 SAMPLE_QUOTED_CSV = [
 '"Pcode","Locality","State","Comments","DeliveryOffice","PresortIndicator","ParcelZone","BSPnumber","BSPname","Category","Lat","Long"',
@@ -77,3 +78,9 @@ class ProcessorTests(unittest.TestCase):
         output = [row for row in p.process(SAMPLE_CUSTOM_QUOTED_CSV)]
         expected = [['0200', '-35.277272', '149.117136'], ['0221', '-35.201372', '149.095065']]
         self.assertEqual(expected, output)
+
+    def test_tab_delimited_input(self):
+        p = Processor(delimiter="\t")
+        output = [row for row in p.process(SAMPLE_TSV)]
+        self.assertEqual([['a', 'b', 'c'], ['d', 'e', 'f'], ['g', 'h', 'i']],
+                         output)

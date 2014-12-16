@@ -37,6 +37,12 @@ def pump(processor, infile, writer):
         writer.writerow(output)
 
 
+def process_delimiter(option, opt, value, parser):
+    if value == '\\t':
+        value = '\t'
+    parser.values.delimiter = value
+
+
 if __name__ == '__main__':
     usage = "Usage: %prog [options] [inputfile]" +\
             "\n\nVersion: %s\nSource: %s" % (VERSION, 'https://github.com/codeinthehole/csvfilter/')
@@ -45,7 +51,8 @@ if __name__ == '__main__':
                       help="Specify which fields to pluck")
     parser.add_option('-s', '--skip', dest='skip', default=0,
                       type='int', help="Number of rows to skip")
-    parser.add_option('-d', '--delimiter', dest='delimiter', default=',',
+    parser.add_option('-d', '--delimiter', type='string', default=',',
+                      action='callback', callback=process_delimiter,
                       help="Delimiter of incoming CSV data")
     parser.add_option('-q', '--quotechar', dest='quotechar', default='"',
                       help="Quotechar of incoming CSV data")
