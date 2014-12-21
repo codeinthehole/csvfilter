@@ -4,7 +4,7 @@ import sys
 # Avoid issue with fields larger than max size
 csv.field_size_limit(sys.maxsize)
 
-VERSION = '0.3.1'
+VERSION = '0.3.2'
 
 
 class Processor(object):
