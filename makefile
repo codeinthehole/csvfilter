@@ -1,6 +1,6 @@
 install: clean
-	python setup.py develop
 	pip install -r requirements.txt
+	python setup.py develop
 
 clean:
 	find . -name "*.pyc" -delete

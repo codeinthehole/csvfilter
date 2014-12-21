@@ -74,11 +74,7 @@ Contribute
 
 After cloning, install the testing requirements::
 
-    pip install -r requirements.txt
-
-Install the package in 'develop' mode to bring the executable onto your path::
-
-    ./setup.py develop
+    make 
 
 Run the tests with::
 
